@@ -32,6 +32,7 @@ contract ArtistManagement is ERC721URIStorage {
     mapping(address => Artist) public artists;
     mapping(address => string[]) public artistWorks;
     mapping(address => uint256) public balances;
+    event ArtistRegistered(address indexed artistAddress, string name, string stageName);
 
     constructor() ERC721("ArtistManagement", "EB") {
         tokenCounter = 0;
@@ -71,6 +72,8 @@ contract ArtistManagement is ERC721URIStorage {
             totalRoyalties: 0
         });
         registeredArtists.push(msg.sender);
+        emit ArtistRegistered(msg.sender, firstName, stageName);
+
     }
 
     function createArtistToken(uint256 initialSupply)
